@@ -41,6 +41,17 @@ app.post("/add-product", async (req, res) => {
   }
 });
 
+//get method
+app.get("/all-product", async (req, res) => {
+  try {
+    const products = await product.find();
+    res.json(products);
+  } catch (error) {
+    res.status(500).json({ error: "Internal server error" });
+  }
+});
+
+//specific get product
 
 app.listen(port, () => {
   console.log(`Example app listening on port ${port}`);
