@@ -79,6 +79,22 @@ app.delete("/product/del/:id", async (req, res) => {
   }
 });
 
+//update a single product
+app.put("/product/update/:id", async (req, res) => {
+  try {
+    const _id = req.params.id.trim();
+    const { name, price, description } = req.body;
+    const updateProduct = await product.findByIdAndUpdate(
+      _id,
+      { name, price, description },
+      { new: true }
+    );
+    res.json(updateProduct);
+  } catch (error) {
+    res.status(500).json({ error: error.message });
+  }
+});
+
 app.listen(port, () => {
   console.log(`Example app listening on port ${port}`);
 });
