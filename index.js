@@ -65,6 +65,20 @@ app.get("/single-product/:id", async (req, res) => {
   }
 });
 
+//delete method
+app.delete("/product/del/:id", async (req, res) => {
+  try {
+    const deletedProduct = await product.findByIdAndDelete(req.params.id);
+    if (deletedProduct) {
+      res.send("deleted product");
+    } else {
+      res.status(404).json({ error: "Product not found" });
+    }
+  } catch (error) {
+    res.status(500).json({ error: "Internal server error" });
+  }
+});
+
 app.listen(port, () => {
   console.log(`Example app listening on port ${port}`);
 });
